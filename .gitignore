@@ -39,3 +39,4 @@ docs/_build
 # Cookiecutter
 output/
 .pytest_cache/
+dist/
