@@ -119,7 +119,7 @@ class CPEOperation:
             for cpe_dict in operation_dict['cpe']:
                 c = CPE(
                     cpe_dict['cpe23Uri'],
-                    cpe_dict['vulnerable'],
+                    cpe_dict.get('vulnerable'),
                     version_start_including=self._get_value(cpe_dict, 'vsi'),
                     version_start_excluding=self._get_value(cpe_dict, 'vse'),
                     version_end_including=self._get_value(cpe_dict, 'vei'),
