@@ -18,6 +18,37 @@ class TestCPE:
         with pytest.raises(ValueError):
             CPE('cpe:2.3:a:apache:activemq:4.0.1:*:*:*:*:*')
 
+    def test_matches_all(self):
+        cpe = CPE('cpe:2.3:a:apache:activemq:4.0.1:*:*:*:*:*:*:*')
+        assert not cpe.matches_all
+
+        cpe = CPE('cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*')
+        assert cpe.matches_all
+
+        cpe = CPE(
+            'cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*',
+            version_start_including='1',
+        )
+        assert not cpe.matches_all
+
+        cpe = CPE(
+            'cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*',
+            version_start_excluding='1',
+        )
+        assert not cpe.matches_all
+
+        cpe = CPE(
+            'cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*',
+            version_end_including='1',
+        )
+        assert not cpe.matches_all
+
+        cpe = CPE(
+            'cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*',
+            version_end_excluding='1',
+        )
+        assert not cpe.matches_all
+
     def test_matches_with_wildcard(self):
         master_cpe = CPE('cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*')
         version_cpe = CPE('cpe:2.3:a:apache:activemq:4.0.1:*:*:*:*:*:*:*')
@@ -32,7 +63,9 @@ class TestCPE:
 
     def test_matches_with_same_branch(self):
         branch_cpe = CPE('cpe:2.3:a:apache:activemq:4.1.*:*:*:*:*:*:*:*')
-        version_branch_cpe = CPE('cpe:2.3:a:apache:activemq:4.1.1:*:*:*:*:*:*:*')
+        version_branch_cpe = CPE(
+            'cpe:2.3:a:apache:activemq:4.1.1:*:*:*:*:*:*:*'
+        )
 
         assert branch_cpe.matches(version_branch_cpe)
 
@@ -42,14 +75,18 @@ class TestCPE:
         assert version_cpe.matches(version_cpe)
 
     def test_matches_with_version_start_including(self):
-        branch_cpe = CPE(self.template % '4.1.*', version_start_including='4.1.3')
+        branch_cpe = CPE(
+            self.template % '4.1.*', version_start_including='4.1.3'
+        )
 
         assert not branch_cpe.matches(CPE(self.template % '4.1.2'))
         assert branch_cpe.matches(CPE(self.template % '4.1.3'))
         assert branch_cpe.matches(CPE(self.template % '4.1.4'))
 
     def test_matches_with_version_start_excluding(self):
-        branch_cpe = CPE(self.template % '4.1.*', version_start_excluding='4.1.3')
+        branch_cpe = CPE(
+            self.template % '4.1.*', version_start_excluding='4.1.3'
+        )
 
         assert not branch_cpe.matches(CPE(self.template % '4.1.2'))
         assert not branch_cpe.matches(CPE(self.template % '4.1.3'))
@@ -74,16 +111,13 @@ class TestCPEOperation:
     def test_cpe_operation_with_or_operation(self):
         operation = {
             'operator': 'OR',
-            'cpe': [
-                {
-                    'cpe23Uri': 'cpe:2.3:a:apache:activemq:4.1.*:*:*:*:*:*:*:*',
-                    'vulnerable': True,
-                },
-                {
-                    'cpe23Uri': 'cpe:2.3:a:apache:activemq:4.2.*:*:*:*:*:*:*:*',
-                    'vulnerable': False,
-                }
-            ]
+            'cpe': [{
+                'cpe23Uri': 'cpe:2.3:a:apache:activemq:4.1.*:*:*:*:*:*:*:*',
+                'vulnerable': True,
+            }, {
+                'cpe23Uri': 'cpe:2.3:a:apache:activemq:4.2.*:*:*:*:*:*:*:*',
+                'vulnerable': False,
+            }]
         }
 
         cpeo = CPEOperation(operation)

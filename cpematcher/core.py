@@ -9,9 +9,25 @@ AND_OPERATOR = 'AND'
 class CPE:
     cpe23_start = 'cpe:2.3:'
     fields = [
-        'part', 'vendor', 'product', 'version', 'update', 'edition',
-        'language', 'sw_edition', 'target_sw', 'target_hw', 'other',
+        'part',
+        'vendor',
+        'product',
+        'version',
+        'update',
+        'edition',
+        'language',
+        'sw_edition',
+        'target_sw',
+        'target_hw',
+        'other',
     ]
+
+    @property
+    def matches_all(self):
+        return self.version == '*' and not (
+            self.version_start_including or self.version_start_excluding or
+            self.version_end_including or self.version_end_excluding
+        )
 
     def __init__(
             self,
@@ -21,7 +37,7 @@ class CPE:
             version_start_excluding=None,
             version_end_including=None,
             version_end_excluding=None,
-        ):
+    ):
         ''' Create CPE object with information about affected software.
 
         Usually CPE is used to find out if a version is vulnerable,
