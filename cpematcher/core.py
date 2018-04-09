@@ -30,13 +30,13 @@ class CPE:
         )
 
     def __init__(
-            self,
-            cpe_str,
-            vulnerable=True,
-            version_start_including=None,
-            version_start_excluding=None,
-            version_end_including=None,
-            version_end_excluding=None,
+        self,
+        cpe_str,
+        vulnerable=True,
+        version_start_including=None,
+        version_start_excluding=None,
+        version_end_including=None,
+        version_end_excluding=None,
     ):
         ''' Create CPE object with information about affected software.
 
