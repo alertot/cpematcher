@@ -72,7 +72,18 @@ class CPE:
             value = getattr(self, f)
             another_value = getattr(another_cpe, f)
 
-            if not fnmatch.fnmatch(another_value, value):
+            '''
+            Depending on the order, fnmatch.fnmatch could return False
+            if wildcard is the first value.
+            As wildcard should always return True in any case,
+            we reorder the arguments based on that.
+            '''
+            if another_value == '*':
+                order = [value, another_value]
+            else:
+                order = [another_value, value]
+
+            if not fnmatch.fnmatch(*order):
                 return False
 
         version = Version(another_cpe.version)
