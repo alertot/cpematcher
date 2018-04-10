@@ -71,7 +71,6 @@ class CPE:
         for f in self.fields:
             value = getattr(self, f)
             another_value = getattr(another_cpe, f)
-
             '''
             Depending on the order, fnmatch.fnmatch could return False
             if wildcard is the first value.

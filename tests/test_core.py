@@ -110,8 +110,7 @@ class TestCPE:
 class TestCPEOperation:
     def test_cpe_operation_with_or_operation(self):
         operation = {
-            'operator':
-                'OR',
+            'operator': 'OR',
             'cpe': [{
                 'cpe23Uri': 'cpe:2.3:a:apache:activemq:4.1.*:*:*:*:*:*:*:*',
                 'vulnerable': True,
