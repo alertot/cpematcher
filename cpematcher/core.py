@@ -120,11 +120,11 @@ class CPEOperation:
             'version_start_excluding',
         ],
         'vei': [
-            'versioEndIncluding',
+            'versionEndIncluding',
             'version_end_including',
         ],
         'vee': [
-            'versioEndExcluding',
+            'versionEndExcluding',
             'version_end_excluding',
         ],
     }
