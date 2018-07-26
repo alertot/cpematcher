@@ -1,1 +1,2 @@
-natsort==5.2.0
+natsort==5.3.3
+fastnumbers==2.0.5
