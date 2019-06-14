@@ -1,5 +1,6 @@
 import fnmatch
 
+from .utils import split_cpe_string
 from .version import Version
 
 OR_OPERATOR = 'OR'
@@ -50,7 +51,7 @@ class CPE:
         assert cpe_str.startswith(self.cpe23_start), "Only CPE 2.3 is supported"
         cpe_str = cpe_str.replace(self.cpe23_start, '')
 
-        values = cpe_str.split(':')
+        values = split_cpe_string(cpe_str)
         if len(values) != 11:
             raise ValueError('Incomplete number of fields')
 
