@@ -82,7 +82,10 @@ class CPE:
             else:
                 order = [another_value, value]
 
-            if not fnmatch.fnmatch(*order):
+            if f == 'version' and '*' not in order and '*' not in order[0] and '*' not in order[1]:
+                if Version(order[0]) != Version(order[1]):
+                    return False
+            elif not fnmatch.fnmatch(*order):
                 return False
 
         version = Version(another_cpe.version)

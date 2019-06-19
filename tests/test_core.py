@@ -106,6 +106,13 @@ class TestCPE:
         assert not branch_cpe.matches(CPE(self.template % '4.1.3'))
         assert not branch_cpe.matches(CPE(self.template % '4.1.4'))
 
+    def test_matches_with_reduntant_patch_level(self):
+        first = CPE(self.template % '4.2')
+        second = CPE(self.template % '4.2.0')
+
+        assert first.matches(second)
+        assert second.matches(first)
+
 
 class TestCPEOperation:
     def test_cpe_operation_with_or_operation(self):
