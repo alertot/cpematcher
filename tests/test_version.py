@@ -10,6 +10,12 @@ class TestVersion:
         assert Version('1.1.1') == Version('1.1.1')
         assert Version('1.1.1') != Version('1.1.2')
 
+    def test_equal_reduntant_patch_level(self):
+        assert Version('1.1') == Version("1.1.0")
+        assert Version('1') == Version('1.0.0')
+        assert Version('1.0') == Version('1.0')
+        assert Version('1.0') != Version('1.0.1')
+
     def test_inequal(self):
         assert Version('1.1.1') != Version('1.1.2')
         assert Version('1.1.1') == Version('1.1.1')
