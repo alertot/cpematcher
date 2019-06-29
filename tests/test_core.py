@@ -7,8 +7,12 @@ class TestCPE:
     template = 'cpe:2.3:a:apache:activemq:%s:*:*:*:*:*:*:*'
 
     def test_init(self):
-        c = CPE('cpe:2.3:a:apache:activemq:4.0.1:*:*:*:*:*:*:*')
-        assert c.vendor == 'apache'
+        cpe_basic = CPE('cpe:2.3:a:apache:activemq:4.0.1:*:*:*:*:*:*:*')
+        assert cpe_basic.vendor == 'apache'
+
+        # CVE-2018-12015, NIST NVD data feed (json)
+        cpe_escaped = CPE('cpe:2.3:a:archive\\:\\:tar_project:archive\\:\\:tar:*:*:*:*:*:perl:*:*')
+        assert cpe_escaped.vendor == 'archive::tar_project'
 
     def test_init_with_invalid_cpe_str(self):
         with pytest.raises(AssertionError):
