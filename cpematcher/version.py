@@ -59,11 +59,11 @@ class Version:
             raise NotImplementedError
 
         self_trimmed = self.version
-        while self_trimmed.endswith('.0'):
+        while self_trimmed.endswith(".0"):
             self_trimmed = self_trimmed[:-2]
 
         other_trimmed = other.version
-        while other_trimmed.endswith('.0'):
+        while other_trimmed.endswith(".0"):
             other_trimmed = other_trimmed[:-2]
 
         return self_trimmed == other_trimmed
