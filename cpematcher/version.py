@@ -2,8 +2,8 @@ from natsort import natsorted
 
 
 class Version:
-    def __init__(self, version: str):
-        self.version = version
+    def __init__(self, version: str | None):
+        self.version = version and version.lower()
 
     def __bool__(self):
         return bool(self.version)

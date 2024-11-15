@@ -77,6 +77,7 @@ class CPE:
 
     @staticmethod
     def _glob_equal(value1: str, value2: str) -> bool:
+        value1, value2 = value1.lower(), value2.lower()
         # Depending on the order, fnmatch.fnmatch could return False if wildcard
         # is the first value. As wildcard should always return True in any case,
         # we reorder the arguments based on that.
