@@ -2,7 +2,7 @@ import contextlib
 
 
 # heavily inspired by https://stackoverflow.com/a/21882672
-def split_cpe_string(string):
+def split_cpe_string(string: str) -> list[str]:
     ret = []
     current = []
     itr = iter(string)
