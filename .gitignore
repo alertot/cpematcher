@@ -40,3 +40,12 @@ docs/_build
 output/
 .pytest_cache/
 dist/
+# Devenv
+.devenv*
+devenv.local.nix
+
+# direnv
+.direnv
+
+# pre-commit
+.pre-commit-config.yaml
