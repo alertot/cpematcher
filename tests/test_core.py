@@ -24,33 +24,6 @@ class TestCPE:
         with pytest.raises(ValueError):
             CPE("cpe:2.3:a:apache:activemq:4.0.1:*:*:*:*:*")
 
-    def test_matches_all(self):
-        cpe = CPE("cpe:2.3:a:apache:activemq:4.0.1:*:*:*:*:*:*:*")
-        assert not cpe.matches_all
-
-        cpe = CPE("cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*")
-        assert cpe.matches_all
-
-        cpe = CPE(
-            "cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*", version_start_including="1"
-        )
-        assert not cpe.matches_all
-
-        cpe = CPE(
-            "cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*", version_start_excluding="1"
-        )
-        assert not cpe.matches_all
-
-        cpe = CPE(
-            "cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*", version_end_including="1"
-        )
-        assert not cpe.matches_all
-
-        cpe = CPE(
-            "cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*", version_end_excluding="1"
-        )
-        assert not cpe.matches_all
-
     def test_matches_with_wildcard(self):
         master_cpe = CPE("cpe:2.3:a:apache:activemq:*:*:*:*:*:*:*:*")
         version_cpe = CPE("cpe:2.3:a:apache:activemq:4.0.1:*:*:*:*:*:*:*")

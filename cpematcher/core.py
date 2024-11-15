@@ -23,14 +23,6 @@ class CPE:
         "other",
     ]
 
-    @property
-    def matches_all(self):
-        return self.version == "*" and not (
-            self.version_start_including
-            or self.version_start_excluding
-            or self.version_end_including
-            or self.version_end_excluding
-        )
 
     def __init__(
         self,
